@@ -1,19 +1,17 @@
 from playwright.sync_api import Page
-from config.settings import BASE_URL
 
-class BasePage:
+class TextBoxPage:
     def __init__(self, page: Page):
         self.page = page
+        self.elements_button = page.get_by_role("heading",name="Elements")
+        self.forms_button = page.locator("#userEmail")
+        self.alerts_frame_windows_button = page.locator("#currentAddress")
+        self.widgets_button = page.locator("#permanentAddress")
+        self.interaction_button = page.locator("#submit")
 
-    def open(self, path: str = ""):
-        url = f"{BASE_URL}/{path.lstrip('/')}"
-        self.page.goto(url)
 
-    def is_visible(self, locator: str) -> bool:
-        return self.page.locator(locator).is_visible()
 
-    def fill(self, locator: str, value: str):
-        self.page.locator(locator).fill(value)
+    def goto_elements(self):
+        self.elements_button.click()
 
-    def click(self, locator: str):
-        self.page.locator(locator).click()
+
